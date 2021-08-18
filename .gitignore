@@ -4,3 +4,4 @@ data/
 target/
 logs/
 .DS_Store
+.vscode/
