@@ -7,8 +7,8 @@ exports.getMeBooks = endpoint => {
   return axios.request({
     method: "GET",
     baseURL: `${url}:${port}`,
-    url: "/books",
-    headers: { Accept: "application/json" },
+    url: "/api/books",
+    headers: { Accept: "application/json; charset=utf-8" },
   })
 }
 
@@ -19,8 +19,8 @@ exports.getMeBook = endpoint => {
   return axios.request({
     method: "GET",
     baseURL: `${url}:${port}`,
-    url: "/books/6113a2bffc523defca5428b0",
-    headers: { Accept: "application/json" },
+    url: "/api/books/611e2a5156d0df7075bad0ea",
+    headers: { Accept: "application/json; charset=utf-8" },
   })
 }
 
@@ -31,8 +31,8 @@ exports.createMeBook = endpoint => {
   return axios.request({
     method: "POST",
     baseURL: `${url}:${port}`,
-    url: "/books",
-    headers: { Accept: "application/json" },
-    data: [{ title: "Heart of Darkness", author: "Joseph Conrad" }]
+    url: "/api/books",
+    headers: { Accept: "application/json; charset=utf-8" },
+    data: { title: "Heart of Darkness", author: "Joseph Conrad" }
   })
 }

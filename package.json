@@ -4,7 +4,8 @@
   "description": "Workshop for Pact Testing",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test:consumer": "mocha",
+    "test:provider": "node provider/books.pact.test.js"
   },
   "author": "Sam Greig",
   "license": "ISC",

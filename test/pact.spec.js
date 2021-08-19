@@ -1,13 +1,7 @@
 const expect = require("chai").expect
 const path = require("path")
-const { Pact, Publisher } = require("@pact-foundation/pact")
+const { Pact } = require("@pact-foundation/pact")
 const { getMeBooks, getMeBook, createMeBook } = require("../index")
-
-// const opts = {
-//   pactBroker = "http://localhost:9292/",
-//   consumerVersion = "1.0.0",
-//   pactFilesOrDirs = ""
-// };
 
 describe("The Book API", () => {
   let url = "http://localhost"
@@ -18,46 +12,42 @@ describe("The Book API", () => {
     log: path.resolve(process.cwd(), "logs", "mockserver-integration.log"),
     dir: path.resolve(process.cwd(), "pacts"),
     spec: 2,
-    consumer: "BookConsumerReplica",
+    consumer: "BookConsumer",
     provider: "BookService",
     pactfileWriteMode: "merge",
   })
 
   const EXPECTED_GET_BOOKS_RESPONSE_BODY = [
     {
-        "_id": "6113a2bffc523defca5428b0",
-        "title": "Wuthering Heights",
-        "author": "Jane Austen"
+      "_id": "611e2a5156d0df7075bad0ea",
+      "title": "Wuthering Heights",
+      "author": "Jane Austen"
     },
     {
-        "_id": "6113a2bffc523defca5428b1",
-        "title": "Dune",
-        "author": "Frank Herbert"
+      "_id": "611e2abf56d0dfabadbad0ec",
+      "title": "Dune",
+      "author": "Frank Herbert"
     }
   ]
 
-  const EXPECTED_GET_BOOK_RESPONSE_BODY = [
-    {
-        "_id": "6113a2bffc523defca5428b0",
-        "title": "Wuthering Heights",
-        "author": "Jane Austen"
-    }
-  ]
+  const EXPECTED_GET_BOOK_RESPONSE_BODY = {
+    
+    "_id": "611e2a5156d0df7075bad0ea",
+    "title": "Wuthering Heights",
+    "author": "Jane Austen"
+  }
 
-  const EXPECTED_POST_RESPONSE_BODY = [
-      {
-        "_id": "6113a2bffc523defca5428b2",
-        "title": "Heart of Darkness",
-        "author": "Joseph Conrad"
-      }
-    ]
+  const EXPECTED_POST_RESPONSE_BODY = {
+    "_id": "611e2abf56d0dfabadbad0ee",
+    "title": "Heart of Darkness",
+    "author": "Joseph Conrad"
+  }
 
-  const POST_REQUEST_BODY = [
-    {
-      title: "Heart of Darkness", 
-      author: "Joseph Conrad"
-    }
-  ]
+  const POST_REQUEST_BODY = {
+
+    title: "Heart of Darkness", 
+    author: "Joseph Conrad"
+  }
 
   before(() => provider.setup())
 
@@ -72,15 +62,15 @@ describe("The Book API", () => {
         uponReceiving: "a request for all books",
         withRequest: {
           method: "GET",
-          path: "/books",
+          path: "/api/books",
           headers: {
-            Accept: "application/json",
+            Accept: "application/json; charset=utf-8",
           },
         },
         willRespondWith: {
           status: 200,
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
           },
           body: EXPECTED_GET_BOOKS_RESPONSE_BODY,
         },
@@ -102,22 +92,22 @@ describe("The Book API", () => {
     })
   })
 
-  describe("get /books/6113a2bffc523defca5428b0", () => {
+  describe("get /books/611e2a5156d0df7075bad0ea", () => {
     before(done => {
       const interaction = {
         state: "i have a list of books",
         uponReceiving: "a request for a single book",
         withRequest: {
           method: "GET",
-          path: "/books/6113a2bffc523defca5428b0",
+          path: "/api/books/611e2a5156d0df7075bad0ea",
           headers: {
-            Accept: "application/json",
+            Accept: "application/json; charset=utf-8",
           },
         },
         willRespondWith: {
           status: 200,
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
           },
           body: EXPECTED_GET_BOOK_RESPONSE_BODY,
         },
@@ -146,16 +136,16 @@ describe("The Book API", () => {
         uponReceiving: "a create new book request",
         withRequest: {
           method: "POST",
-          path: "/books",
+          path: "/api/books",
           headers: {
-            Accept: "application/json",
+            Accept: "application/json; charset=utf-8",
           },
           body: POST_REQUEST_BODY
         },
         willRespondWith: {
           status: 200,
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
           },
           body: EXPECTED_POST_RESPONSE_BODY,
         },
