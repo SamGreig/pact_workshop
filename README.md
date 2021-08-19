@@ -19,10 +19,15 @@ You will need *Docker* installed on your system.
 
 > Generating the consumer Pact contract
 - Run `npm install` to install the test dependencies.
-- Run `npm test` to run the consumer integration tests and generate the Pact file.
+- Run `npm run test:consumer` to run the consumer integration tests and generate the Pact file.
 - The generated pact file will be published to the broker and can be located at `./pacts`
 ####
 
+> Uploading the pact to the broker
+- Run `curl -v -XPUT \-H "Content-Type: application/json" -d@pacts/bookconsumer-bookservice.json http://localhost:9292/pacts/provider/BookService/consumer/BookConsumer/version/1.0.0`
+####
+
 > Testing the provider against the consumer contract
-- TODO
+- Run `npm run test:provider` to run the provider tests against the pact broker
+
 ####

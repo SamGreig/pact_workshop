@@ -14,7 +14,7 @@ router.post("/books", async (req, res) => {
     author: req.body.author
   });
     await post.save();
-    res.send(post); 
+    res.status(201).send(post); 
   } catch {
     res.status(400);
     res.send({ error: "400 Bad Request"})

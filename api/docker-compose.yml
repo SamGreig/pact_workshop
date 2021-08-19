@@ -14,3 +14,7 @@ services:
             image: mongo:3.6.3
             ports:
               - "27017:27017"
+       mongo-seed:
+            build: ./database/mongo-seed
+            links:
+              - mongo
